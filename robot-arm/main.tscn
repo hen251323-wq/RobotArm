@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://bjbtyrw4th3g0"]
+
+[ext_resource type="Script" uid="uid://bfocfmlub5d00" path="res://robot_base_arm_upper.gd" id="1_ig7tw"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ig7tw"]
+size = Vector2(5, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0xm2m"]
+size = Vector3(5, 0, 5)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ig7tw"]
+
+[sub_resource type="Sky" id="Sky_0xm2m"]
+sky_material = SubResource("ProceduralSkyMaterial_ig7tw")
+
+[sub_resource type="Environment" id="Environment_h2yge"]
+background_mode = 2
+sky = SubResource("Sky_0xm2m")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7dm0k"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
+material = SubResource("StandardMaterial3D_7dm0k")
+size = Vector3(0.75, 1, 0.75)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0xm2m"]
+albedo_color = Color(1, 0.3019608, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_h2yge"]
+material = SubResource("StandardMaterial3D_0xm2m")
+radius = 0.25
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1bvp3"]
+albedo_color = Color(1, 0.27450982, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_lquwl"]
+material = SubResource("StandardMaterial3D_1bvp3")
+top_radius = 0.2
+bottom_radius = 0.2
+height = 1.0
+radial_segments = 8
+
+[node name="Main" type="Node3D" unique_id=1669789258]
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=81461438]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1331224452]
+mesh = SubResource("PlaneMesh_ig7tw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=987041309]
+shape = SubResource("BoxShape3D_0xm2m")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1435236759]
+environment = SubResource("Environment_h2yge")
+
+[node name="RobotBase" type="MeshInstance3D" parent="." unique_id=1242226897]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_ig7tw")
+
+[node name="RobotBaseArmUpper" type="MeshInstance3D" parent="RobotBase" unique_id=180812978]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("SphereMesh_h2yge")
+script = ExtResource("1_ig7tw")
+
+[node name="RobotArmUpper" type="MeshInstance3D" parent="RobotBase/RobotBaseArmUpper" unique_id=29104094]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+mesh = SubResource("CylinderMesh_lquwl")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=542106912]
+transform = Transform3D(0.70710677, -0.26488686, 0.655618, 0, 0.92718387, 0.3746066, -0.70710677, -0.26488686, 0.655618, 2, 2, 2)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=593904353]
+transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 0, 0)
+shadow_enabled = true
