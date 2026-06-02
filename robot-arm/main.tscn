@@ -22,13 +22,14 @@ sky_material = SubResource("ProceduralSkyMaterial_ig7tw")
 [sub_resource type="Environment" id="Environment_h2yge"]
 background_mode = 2
 sky = SubResource("Sky_0xm2m")
+ambient_light_source = 3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ig7tw"]
 albedo_color = Color(0, 0.4509804, 0.92156863, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
 material = SubResource("StandardMaterial3D_ig7tw")
-size = Vector3(0.75, 1, 0.75)
+size = Vector3(0.75, 0.5, 0.75)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0xm2m"]
 albedo_color = Color(0.9882353, 0.47058824, 0, 1)
@@ -62,14 +63,16 @@ shape = SubResource("BoxShape3D_0xm2m")
 environment = SubResource("Environment_h2yge")
 
 [node name="RobotBase" type="MeshInstance3D" parent="." unique_id=1242226897]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 mesh = SubResource("BoxMesh_ig7tw")
 
 [node name="RobotBaseArmUpper" type="MeshInstance3D" parent="RobotBase" unique_id=180812978]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 mesh = SubResource("SphereMesh_h2yge")
 script = ExtResource("1_ig7tw")
 base_action_key = "robot_arm_upper"
+max_angle_x_degrees = 50.0
+min_angle_x_degrees = -50.0
 
 [node name="RobotArmUpper" type="MeshInstance3D" parent="RobotBase/RobotBaseArmUpper" unique_id=29104094]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
@@ -81,15 +84,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 mesh = SubResource("SphereMesh_h2yge")
 script = ExtResource("1_ig7tw")
 base_action_key = "robot_arm_lower"
+max_angle_x_degrees = 100.0
+min_angle_x_degrees = -100.0
 
 [node name="RobotArmLower" type="MeshInstance3D" parent="RobotBase/RobotBaseArmUpper/RobotArmUpper/RobotBaseArmLower" unique_id=1294392085]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 rotation_edit_mode = 1
 mesh = SubResource("CylinderMesh_lquwl")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=542106912]
-transform = Transform3D(0.7071067, -0.1227878, 0.6963642, 0, 0.9848077, 0.17364818, -0.7071067, -0.1227878, 0.6963642, 2, 2, 2)
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=593904353]
-transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 0, 0)
+[node name="Sun" type="DirectionalLight3D" parent="RobotBase/RobotBaseArmUpper/RobotArmUpper/RobotBaseArmLower/RobotArmLower" unique_id=593904353]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -2, 0)
 shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=542106912]
+transform = Transform3D(0.7071067, -0.18301268, 0.6830126, 0, 0.96592575, 0.258819, -0.7071067, -0.18301268, 0.6830126, 2.5, 2.5, 2.5)

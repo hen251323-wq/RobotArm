@@ -13,12 +13,17 @@ config_version=5
 config/name="Robot Arm"
 run/main_scene="uid://bjbtyrw4th3g0"
 config/features=PackedStringArray("4.6", "GL Compatibility")
+boot_splash/bg_color=Color(1.2513996e-06, 0.42228746, 0.63919634, 1)
 config/icon="res://icon.svg"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+
+[dotnet]
+
+project/assembly_name="Robot Arm"
 
 [input]
 
