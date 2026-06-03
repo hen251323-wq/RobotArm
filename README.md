@@ -1,23 +1,23 @@
-### Robot Arm
+# Robot Arm
 
 Cool robot arm.
 
 ## Controls
 
-# Upper Arm
+### Upper Arm
 
 - [W]       Move forward.
 - [A]       Rotate left.
 - [S]       Move back.
 - [D]       Rotate right.
 
-# Lower Arm
+### Lower Arm
 
 - [Up]      Move forward.
 - [Left]    Rotate left.
 - [Down]    Move back.
 - [Right]   Rotate right.
 
-# Camera
+### Camera
 
 - [Space]   Toggle right camera lock.
