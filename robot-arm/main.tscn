@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bjbtyrw4th3g0"]
 
 [ext_resource type="Script" uid="uid://bfocfmlub5d00" path="res://robot_arm.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://rf2xcq3ed3sp" path="res://robot_camera.gd" id="2_0xm2m"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ig7tw"]
 size = Vector2(5, 5)
@@ -62,11 +63,54 @@ shape = SubResource("BoxShape3D_0xm2m")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1435236759]
 environment = SubResource("Environment_h2yge")
 
-[node name="RobotBase" type="MeshInstance3D" parent="." unique_id=1242226897]
+[node name="Viewports" type="Control" parent="." unique_id=694310687]
+clip_contents = true
+layout_direction = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LeftViewport" type="SubViewportContainer" parent="Viewports" unique_id=729847273]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Viewports/LeftViewport" unique_id=949650016]
+handle_input_locally = false
+size = Vector2i(640, 720)
+render_target_update_mode = 4
+
+[node name="Camera" type="Camera3D" parent="Viewports/LeftViewport/SubViewport" unique_id=542106912]
+transform = Transform3D(0.7071068, -0.1830127, 0.6830127, 0, 0.9659259, 0.25881904, -0.7071068, -0.1830127, 0.6830127, 2.5, 2.5, 2.5)
+current = true
+
+[node name="RightViewport" type="SubViewportContainer" parent="Viewports" unique_id=838537883]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Viewports/RightViewport" unique_id=1859262976]
+handle_input_locally = false
+size = Vector2i(640, 720)
+render_target_update_mode = 4
+
+[node name="RobotBase" type="MeshInstance3D" parent="Viewports/RightViewport/SubViewport" unique_id=1242226897]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 mesh = SubResource("BoxMesh_ig7tw")
 
-[node name="RobotBaseArmUpper" type="MeshInstance3D" parent="RobotBase" unique_id=180812978]
+[node name="RobotBaseArmUpper" type="MeshInstance3D" parent="Viewports/RightViewport/SubViewport/RobotBase" unique_id=180812978]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 mesh = SubResource("SphereMesh_h2yge")
 script = ExtResource("1_ig7tw")
@@ -74,12 +118,12 @@ base_action_key = "robot_arm_upper"
 max_angle_x_degrees = 50.0
 min_angle_x_degrees = -50.0
 
-[node name="RobotArmUpper" type="MeshInstance3D" parent="RobotBase/RobotBaseArmUpper" unique_id=29104094]
+[node name="RobotArmUpper" type="MeshInstance3D" parent="Viewports/RightViewport/SubViewport/RobotBase/RobotBaseArmUpper" unique_id=29104094]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 rotation_edit_mode = 1
 mesh = SubResource("CylinderMesh_lquwl")
 
-[node name="RobotBaseArmLower" type="MeshInstance3D" parent="RobotBase/RobotBaseArmUpper/RobotArmUpper" unique_id=1045816004]
+[node name="RobotBaseArmLower" type="MeshInstance3D" parent="Viewports/RightViewport/SubViewport/RobotBase/RobotBaseArmUpper/RobotArmUpper" unique_id=1045816004]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 mesh = SubResource("SphereMesh_h2yge")
 script = ExtResource("1_ig7tw")
@@ -87,14 +131,16 @@ base_action_key = "robot_arm_lower"
 max_angle_x_degrees = 100.0
 min_angle_x_degrees = -100.0
 
-[node name="RobotArmLower" type="MeshInstance3D" parent="RobotBase/RobotBaseArmUpper/RobotArmUpper/RobotBaseArmLower" unique_id=1294392085]
+[node name="RobotArmLower" type="MeshInstance3D" parent="Viewports/RightViewport/SubViewport/RobotBase/RobotBaseArmUpper/RobotArmUpper/RobotBaseArmLower" unique_id=1294392085]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 rotation_edit_mode = 1
 mesh = SubResource("CylinderMesh_lquwl")
 
-[node name="Sun" type="DirectionalLight3D" parent="RobotBase/RobotBaseArmUpper/RobotArmUpper/RobotBaseArmLower/RobotArmLower" unique_id=593904353]
+[node name="Sun" type="DirectionalLight3D" parent="Viewports/RightViewport/SubViewport/RobotBase/RobotBaseArmUpper/RobotArmUpper/RobotBaseArmLower/RobotArmLower" unique_id=593904353]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -2, 0)
 shadow_enabled = true
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=542106912]
-transform = Transform3D(0.7071067, -0.18301268, 0.6830126, 0, 0.96592575, 0.258819, -0.7071067, -0.18301268, 0.6830126, 2.5, 2.5, 2.5)
+[node name="Camera" type="Camera3D" parent="Viewports/RightViewport/SubViewport/RobotBase/RobotBaseArmUpper/RobotArmUpper/RobotBaseArmLower/RobotArmLower" unique_id=487428492]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 4, 0)
+fov = 90.0
+script = ExtResource("2_0xm2m")

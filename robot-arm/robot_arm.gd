@@ -11,7 +11,7 @@ func get_turn_angle(delta: float) -> float:
 func _process(delta: float) -> void:
 	var angle_x: float = 0.0
 	var angle_y: float = 0.0
-		
+	
 	if (Input.is_action_pressed(base_action_key + "_up")):
 		angle_x += get_turn_angle(delta)
 		
